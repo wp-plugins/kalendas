@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.1.1
+Version: 0.1.2
 Plugin URI: http://www.sebaxtian.com/acerca-de/por-hacer
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -42,7 +42,6 @@ add_action('activate_plugin', 'kalendas_activate');
 */
 function kalendas_text_domain() {
 	add_thickbox();
-	
 	load_plugin_textdomain('kalendas', 'wp-content/plugins/kalendas/lang');
 }
 
@@ -303,6 +302,11 @@ function kalendas_not_ready_file( $source )
 		$data = new SimpleXMLElement($data); //Pase XML
 		$attr = $data->attributes();
 		$timestamp = $attr->timestamp;//Get version
+		
+		//Calculate 'midnight' in server Time Zone
+		$timeoff = get_option('gmt_offset')*(60*60);
+		$cicle_begin = $cicle_begin + $timeoff;
+		
 		if($timestamp<$cicle_begin) { //Is older
 			$answer = true;
 		}
@@ -503,6 +507,7 @@ if((float)$wp_version >= 2.8) { //The new widget system
 			extract($args, EXTR_SKIP);
 			
 			$source = $instance['source'];
+
 
 			
 			echo $before_widget;

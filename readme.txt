@@ -3,13 +3,16 @@ Contributors: sebaxtian
 Tags: google calendar, calendar, events
 Requires at least: 2.9
 Tested up to: 2.9.2
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 
 Kalendas gets your events from multiple Google Calendars and displays them in your page using a time range.
 
 == Description ==
 
 Kalendas is a plugin that requires the data from your Google Calendar and display one or all your calendars in an event list.
+
+See the screenshots for an infogram explaining how to set a calendar as public and where to get the XML feed.
+
 
 Screenshots are in spanish because it's my native language. As you should know yet I __spe'k__ english, and the plugin use it by default.
 
@@ -46,7 +49,7 @@ Yes. Copy the file templates/kalendas_event.tpl into your theme directory and ed
 
 = Where can I get the feed to my calendar? =
 
-The calndar must be public for Kalendas to get it. One of the screenshots in the gallery is an infogram explaining how to set a calendar as public and where to get the XML feed.
+The calendar must be public for Kalendas to get it. One of the screenshots in the gallery is an infogram explaining how to set a calendar as public and where to get the XML feed.
 
 == Screenshots ==
 
@@ -57,6 +60,9 @@ The calndar must be public for Kalendas to get it. One of the screenshots in the
 5. Infogram to set a Google Calendar as public data and where to get the XML.
 
 == Changelog ==
+
+= 0.1.2 =
+* Solved a bug where kalendas updated events in GMT midnight, not in server zone midnight.
 
 = 0.1.1 =
 * Solving a 'class name' bug.
