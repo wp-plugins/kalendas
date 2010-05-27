@@ -1,0 +1,15 @@
+div.kalendas-img-off {
+	font-size: 80%;
+	float: right;
+	width: 80px;
+	text-align: center;
+	background: none;
+}
+
+div.kalendas-img-on {
+	font-size: 80%; 
+	float: right;
+	width: 80px;
+	text-align: center;
+	background: url(../img/loading-page.gif) no-repeat center;
+}

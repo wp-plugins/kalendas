@@ -1,0 +1,252 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Kalendas\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-25 18:23-0500\n"
+"PO-Revision-Date: 2010-05-25 18:23-0500\n"
+"Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
+"Language-Team: sebaxtian <sebaxtian@gawab.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: /var/www/wordpress/wp-content/plugins/kalendas\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: COLOMBIA\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: templates\n"
+
+#: kalendas.php:160
+#: templates/kalendas_options.php:15
+#: templates/kalendas_options.php:27
+msgid "Today"
+msgstr "Hoy"
+
+#: kalendas.php:161
+msgid "Tomorrow"
+msgstr "Mañana"
+
+#: kalendas.php:183
+msgid "When"
+msgstr "Cuándo"
+
+#: kalendas.php:184
+msgid "Where"
+msgstr "Dónde"
+
+#: kalendas.php:191
+msgid "No events programmed."
+msgstr "No hay eventos programados."
+
+#: kalendas.php:208
+msgid "Update"
+msgstr "Actualizar"
+
+#: kalendas.php:336
+msgid "Can't create the events list. Check your options."
+msgstr "No se pudo crear la lista de eventos. Revise sus opciones."
+
+#: kalendas.php:364
+msgid "Loading Events list..."
+msgstr "Cargando lista de eventos..."
+
+#: kalendas.php:384
+#: kalendas.php:535
+#: templates/kalendas_options.php:4
+#, php-format
+msgid "You have to install <a href=\"%s\" target=\"_BLANK\">minimax %1.1f</a> in order for this plugin to work."
+msgstr "Deber&aacute; instalar <a href=\"%s\" target=\"_BLANK\">minimax %1.1f</a> para que este plugin funcione."
+
+#: kalendas.php:458
+msgid "Options saved"
+msgstr "Opciones almacenadas"
+
+#: kalendas.php:495
+msgid "Add an event list to your sidebar."
+msgstr "Agregar una litsa de eventos a la barra lateral."
+
+#: templates/kalendas_widget.php:3
+msgid "Title"
+msgstr "Título"
+
+#: templates/kalendas_widget.php:10
+msgid "Google calendar feed"
+msgstr "Fuente de Calendario Google"
+
+#: templates/kalendas_options.php:3
+msgid "Kalendas' Options"
+msgstr "Opciones de Kalendas"
+
+#: templates/kalendas_options.php:9
+msgid "Date format"
+msgstr "Formato de fecha"
+
+#: templates/kalendas_options.php:10
+msgid "Doumentation about date format."
+msgstr "Documentación sobre formato de fecha."
+
+#: templates/kalendas_options.php:13
+msgid "Show events since"
+msgstr "Mostrar eventos desde"
+
+#: templates/kalendas_options.php:16
+msgid "One day before"
+msgstr "Un día antes"
+
+#: templates/kalendas_options.php:17
+msgid "Two days before"
+msgstr "Dos días antes"
+
+#: templates/kalendas_options.php:18
+msgid "One week before"
+msgstr "Una semana antes"
+
+#: templates/kalendas_options.php:19
+msgid "Two weeks before"
+msgstr "Dos semanas antes"
+
+#: templates/kalendas_options.php:20
+msgid "One month before"
+msgstr "Un mes antes"
+
+#: templates/kalendas_options.php:25
+msgid "Show events until"
+msgstr "Mostrar eventos hasta"
+
+#: templates/kalendas_options.php:28
+msgid "One day after"
+msgstr "Un día después"
+
+#: templates/kalendas_options.php:29
+msgid "Two days after"
+msgstr "Dos días después"
+
+#: templates/kalendas_options.php:30
+msgid "One week after"
+msgstr "Una semana después"
+
+#: templates/kalendas_options.php:31
+msgid "Two weeks after"
+msgstr "Dos semanas después"
+
+#: templates/kalendas_options.php:32
+msgid "One month after"
+msgstr "Un mes después"
+
+#: templates/kalendas_options.php:37
+msgid "Show at the most"
+msgstr "Mostrar máximo"
+
+#: templates/kalendas_options.php:41
+msgid "Update every"
+msgstr "Actualizar cada"
+
+#: templates/kalendas_options.php:43
+msgid "hour"
+msgstr "hora"
+
+#: templates/kalendas_options.php:44
+msgid "day"
+msgstr "día"
+
+#: templates/kalendas_options.php:50
+msgid "Update Options"
+msgstr "Actualizar Opciones"
+
+#: ajax/content.php:12
+msgid "Events list updated"
+msgstr "Lista de eventos actualizada"
+
+#: ajax/content.php:17
+msgid "Only Kalendas can use this link."
+msgstr "Solo Kalendas puede usar este vínculo."
+
+#~ msgid "Por Hacer Options"
+#~ msgstr "Opciones de 'Por Hacer'"
+#~ msgid "XML File doesn't exist"
+#~ msgstr "El archivo XML no existe"
+#~ msgid "Sunday"
+#~ msgstr "Domingo"
+#~ msgid "Monday"
+#~ msgstr "Lunes"
+#~ msgid "Tuesday"
+#~ msgstr "Martes"
+#~ msgid "Wednesday"
+#~ msgstr "Miércoles"
+#~ msgid "Thursday"
+#~ msgstr "Jueves"
+#~ msgid "Friday"
+#~ msgstr "Viernes"
+#~ msgid "Saturday"
+#~ msgstr "Sábado"
+#~ msgid "Sun"
+#~ msgstr "Dom"
+#~ msgid "Mon"
+#~ msgstr "Lun"
+#~ msgid "Tue"
+#~ msgstr "Mar"
+#~ msgid "Wed"
+#~ msgstr "Mie"
+#~ msgid "Thu"
+#~ msgstr "Jue"
+#~ msgid "Fri"
+#~ msgstr "Vie"
+#~ msgid "Sat"
+#~ msgstr "Sáb"
+#~ msgid "January"
+#~ msgstr "Enero"
+#~ msgid "February"
+#~ msgstr "Febrero"
+#~ msgid "March"
+#~ msgstr "Marzo"
+#~ msgid "April"
+#~ msgstr "Abril"
+#~ msgid "May"
+#~ msgstr "Mayo"
+#~ msgid "June"
+#~ msgstr "Junio"
+#~ msgid "July"
+#~ msgstr "Julio"
+#~ msgid "August"
+#~ msgstr "Agosto"
+#~ msgid "September"
+#~ msgstr "Septiembre"
+#~ msgid "October"
+#~ msgstr "Octubre"
+#~ msgid "November"
+#~ msgstr "Noviembre"
+#~ msgid "December"
+#~ msgstr "Diciembre"
+#~ msgid "Jan"
+#~ msgstr "Ene"
+#~ msgid "Feb"
+#~ msgstr "Feb"
+#~ msgid "Mar"
+#~ msgstr "Mar"
+#~ msgid "Apr"
+#~ msgstr "Abr"
+#~ msgid "Jun"
+#~ msgstr "Jun"
+#~ msgid "Jul"
+#~ msgstr "Jul"
+#~ msgid "Aug"
+#~ msgstr "Ago"
+#~ msgid "Sep"
+#~ msgstr "Sep"
+#~ msgid "Oct"
+#~ msgstr "Oct"
+#~ msgid "Nov"
+#~ msgstr "Nov"
+#~ msgid "Dec"
+#~ msgstr "Dic"
+
+#, fuzzy
+#~ msgid "F l, M j. Y h:i A"
+#~ msgstr "l, M j. Y h:i A"
+
