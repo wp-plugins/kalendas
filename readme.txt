@@ -11,7 +11,7 @@ Kalendas gets your events from multiple Google Calendars and displays them in yo
 
 Kalendas is a plugin that requires the data from your Google Calendar and display one or all your calendars in an event list.
 
-You can use the tag [kalendas:title,feed] to put an event list in a pages or posts.
+You can use the tag [kalendas:title,feed] to put an event list in pages or posts.
 
 See the screenshots for an infogram explaining how to set public a calendar where to get the XML feed.
 
@@ -23,8 +23,8 @@ Screenshots are in spanish because it's my native language. As you should know y
 2. Decompress kalendas.zip and upload `/kalendas/` to the `/wp-content/plugins/` directory.
 3. Activate the plugin through the __Plugins__ menu in WordPress
 4. Configure Kalendas to set your time range.
-5. Add the widget into your side bar, each with your Calendar RSS or XML descriptor.
-6. Add the tag [kalendas:title,source] in a page or post where you want an event list.
+5. Add the widget into your side bar, each with your Calendar RSS or XML descriptor (see screenshots for an infogram).
+6. Add the tag [kalendas:title,source] in pages or posts where you want an event list (see screenshots for an infogram).
 
 == Frequently Asked Questions ==
 
@@ -51,7 +51,7 @@ Yes. Copy the file templates/kalendas_event.tpl into your theme directory and ed
 
 = Where can I get the feed to my calendar? =
 
-The calndar must be public for Kalendas to get it. One of the screenshots in the gallery is an infogram explaining how to set a calendar as public and where to get the XML feed.
+Your calendar must be public for Kalendas to get it. One of the screenshots in the gallery is an infogram explaining how to set public a calendar and where to get the XML feed.
 
 == Screenshots ==
 
@@ -59,7 +59,7 @@ The calndar must be public for Kalendas to get it. One of the screenshots in the
 2. Event popup window
 3. Kalendas' options
 4. Sidebar widget options
-5. Infogram to set a Google Calendar as public data and where to get the XML.
+5. Infogram to set public a Google Calendar and where to get the XML.
 
 == Changelog ==
 
