@@ -13,7 +13,7 @@ Kalendas is a plugin that requires the data from your Google Calendar and displa
 
 You can add widgets for each calendar in your side bar, or use the tag [kalendas:title,feed] to put an event list in pages or posts.
 
-See the screenshots for an infogram explaining how to set public a calendar where to get the XML feed.
+See the screenshots for an infogram explaining how to set public a calendar and how to get the XML feed.
 
 Screenshots are in spanish because it's my native language. As you should know yet I __spe'k__ english, and the plugin use it by default.
 
