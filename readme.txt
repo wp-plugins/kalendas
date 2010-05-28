@@ -11,7 +11,7 @@ Kalendas gets your events from multiple Google Calendars and displays them in yo
 
 Kalendas is a plugin that requires the data from your Google Calendar and display one or all your calendars in an event list.
 
-You can use the tag [kalendas:title,feed] to put an event list in pages or posts.
+You can add widgets for each calendar in your side bar, or use the tag [kalendas:title,feed] to put an event list in pages or posts.
 
 See the screenshots for an infogram explaining how to set public a calendar where to get the XML feed.
 
