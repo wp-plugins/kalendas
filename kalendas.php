@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.1.2
+Version: 0.1.3
 Plugin URI: http://www.sebaxtian.com/acerca-de/por-hacer
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -33,6 +33,7 @@ add_action('wp_head', 'kalendas_header');
 add_action('init', 'kalendas_text_domain');
 add_action('admin_menu', 'kalendas_menus');
 add_action('activate_plugin', 'kalendas_activate');
+add_filter('the_content', 'kalendas_content');
 
 /**
 * To declare where are the mo files (i18n).
@@ -305,7 +306,7 @@ function kalendas_not_ready_file( $source )
 		
 		//Calculate 'midnight' in server Time Zone
 		$timeoff = get_option('gmt_offset')*(60*60);
-		$cicle_begin = $cicle_begin + $timeoff;
+		$cicle_begin = $cicle_begin - $timeoff;
 		
 		if($timestamp<$cicle_begin) { //Is older
 			$answer = true;
@@ -353,7 +354,7 @@ function kalendas_htmlCode( $source ) {
 * @access public
 * @return string The HTML code.
 */
-function kalendas_content( $source ) {
+function kalendas_container( $source ) {
 	$md5 = md5($source);
 	$answer="";
 	
@@ -481,6 +482,41 @@ function kalendas_options()
 }
 
 /**
+* Filter to manage contents. Check for [kalendas] tags.
+* This function should be called by a filter.
+*
+* @access public
+* @param string content The content to change.
+* @return The content with the changes the plugin have to do.
+*/
+function kalendas_content($content) {
+
+	//Show a specific event list
+	$search = "@(?:<p>)*\s*\[kalendas\s*:([^,]+),([^\]]+)\]\s*(?:</p>)*@i";
+	if(preg_match_all($search, $content, $matches)) {
+		if(is_array($matches)) {
+			foreach($matches[0] as $key=>$search) {
+				// Get data from tag
+				$title = $matches[1][$key];
+				$source = $matches[2][$key];
+				$source = str_replace('/public/basic', '/public/full', $source);
+								
+				$replace = "<h2>$title</h2>"; 
+				if(kalendas_not_ready_file($source)) {
+					$replace.= kalendas_container($source);	
+				} else {
+					$replace.= kalendas_htmlCode($source);
+				}
+				
+				$content = str_replace ($search, $replace, $content);
+			}
+		}
+	}
+	return $content;
+	
+}
+
+/**
 * Kalendas widget stuff (New MultiWidget )
 *
 */
@@ -501,6 +537,8 @@ if((float)$wp_version >= 2.8) { //The new widget system
 		}
 		
 		/**
+
+
 		 * display widget
 		 */	 
 		function widget($args, $instance) {
@@ -514,7 +552,7 @@ if((float)$wp_version >= 2.8) { //The new widget system
 			if ( strlen($instance['title'])>0 ) { echo $before_title . $instance['title'] . $after_title; };
 			
 			if(kalendas_not_ready_file($source)) {
-				echo kalendas_content($source);	
+				echo kalendas_container($source);	
 			} else {
 				echo kalendas_htmlCode($source);
 			}
