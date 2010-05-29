@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.1.3
-Plugin URI: http://www.sebaxtian.com/acerca-de/por-hacer
+Version: 0.1.3.1
+Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
 Author URI: http://www.sebaxtian.com/
@@ -225,8 +225,22 @@ function kalendas_create( $source ) {
 	$options = get_option('kalendas_options');
 	$answer = false;
 	$today = current_time("mysql", 0);
+	$now = current_time("timestamp", 0);
 	list( $today_year, $today_month, $today_day, $hour, $minute, $second ) = split( '([^0-9])', $today );
 	$hour  = (int)$hour;
+	
+	switch($options['hours_update']) {
+		case 1:
+			$timestamp = $now+(60-$second+(59-$minute)*60);
+			break;
+		case 24:
+			$timestamp = $now+(60-$second+(59-$minute)*60+(23-$hour)*(60*60));
+			break;
+	}
+	//Calculate 'midnight' in server Time Zone
+	$timeoff = get_option('gmt_offset')*(60*60);
+	$timestamp = $timestamp - $timeoff;
+	
 	//                      H        M  S      M          D            Y
 	$cicle_begin = mktime(date("H"), 0, 0, date("n"), date("j"), date("Y"));
 	
@@ -252,7 +266,7 @@ function kalendas_create( $source ) {
 	if($data = mnmx_readfile($url)) { 
 		if($data[0]=="<") {
 			$data = new SimpleXMLElement($data); //Parse the XML
-			$out="<?xml version = '1.0' encoding = 'UTF-8'?><events version='".KALENDAS_XML_V."' timestamp='$cicle_begin'>";
+			$out="<?xml version = '1.0' encoding = 'UTF-8'?><events version='".KALENDAS_XML_V."' timestamp='$timestamp'>";
 			foreach($data->entry as $item) {
 				$gd = $item->children('http://schemas.google.com/g/2005');
 				$where_attr = $gd->where->attributes();
@@ -291,24 +305,12 @@ function kalendas_not_ready_file( $source )
 	if(!$data = get_transient('kalendas-'.$md5)) { //Doesn't exist
 		$answer = true; 
 	} else { //Exists
-		switch($options['hours_update']) {
-			case 1:
-				$cicle_begin = mktime(date("H"), 0, 0, date("n"), date("j"), date("Y"));
-				break;
-			case 24:
-				$cicle_begin = mktime(0, 0, 0, date("n"), date("j"), date("Y"));
-				break;
-		}
-
 		$data = new SimpleXMLElement($data); //Pase XML
 		$attr = $data->attributes();
 		$timestamp = $attr->timestamp;//Get version
-		
-		//Calculate 'midnight' in server Time Zone
-		$timeoff = get_option('gmt_offset')*(60*60);
-		$cicle_begin = $cicle_begin - $timeoff;
-		
-		if($timestamp<$cicle_begin) { //Is older
+
+		if($timestamp<=time()) { //Is older	echo "$timestamp<=".time();
+
 			$answer = true;
 		}
 	}
