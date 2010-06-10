@@ -1,7 +1,6 @@
 <div class="wrap">
 	<div id="icon-options-general" class="icon32"><br /></div>
 	<h2><?php _e( 'Kalendas\' Options', 'kalendas' ); ?></h2>
-	<?php if(!function_exists('minimax_version') || minimax_version()<KALENDAS_MNMX_V) { echo "<div class='updated'><p>".sprintf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'sk'), "http://wordpress.org/extend/plugins/minimax/", KALENDAS_MNMX_V )."</p></div>"; }?>
 	<form method="post" action="<?php echo remove_query_arg(array('mode', 'id')); ?>">
 		<input type="hidden" name="kalendas_hidden_field" value="Y"><input type="hidden" name="mode_x" value="manage_x">
 		<table class="form-table">

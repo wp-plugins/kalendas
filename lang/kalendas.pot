@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kalendas\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-09 19:47-0500\n"
-"PO-Revision-Date: 2010-06-09 19:47-0500\n"
+"POT-Creation-Date: 2010-06-09 19:46-0500\n"
+"PO-Revision-Date: 2010-06-09 19:46-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,142 +17,140 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: /var/www/wordpress/wp-content/plugins/kalendas\n"
-"X-Poedit-Language: Spanish\n"
-"X-Poedit-Country: COLOMBIA\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: templates\n"
 
 #: kalendas.php:96
 msgid "Can\\'t read Kalendas Feed"
-msgstr "No se pudo leer la fuente de Kalendas"
+msgstr ""
 
 #: kalendas.php:224
 #: templates/kalendas_options.php:14
 #: templates/kalendas_options.php:26
 msgid "Today"
-msgstr "Hoy"
+msgstr ""
 
 #: kalendas.php:225
 msgid "Tomorrow"
-msgstr "Mañana"
+msgstr ""
 
 #: kalendas.php:247
 msgid "When"
-msgstr "Cuándo"
+msgstr ""
 
 #: kalendas.php:248
 msgid "Where"
-msgstr "Dónde"
+msgstr ""
 
 #: kalendas.php:255
 msgid "No events programmed."
-msgstr "No hay eventos programados."
+msgstr ""
 
 #: kalendas.php:266
 msgid "Update"
-msgstr "Actualizar"
+msgstr ""
 
 #: kalendas.php:403
 msgid "Can't create the events list. Check your options."
-msgstr "No se pudo crear la lista de eventos. Revise sus opciones."
+msgstr ""
 
 #: kalendas.php:429
 msgid "Loading Events list..."
-msgstr "Cargando lista de eventos..."
+msgstr ""
 
 #: kalendas.php:501
 msgid "Options saved"
-msgstr "Opciones almacenadas"
+msgstr ""
 
 #: kalendas.php:573
 msgid "Add an event list to your sidebar."
-msgstr "Agregar una litsa de eventos a la barra lateral."
+msgstr ""
 
 #: templates/kalendas_widget.php:3
 msgid "Title"
-msgstr "Título"
+msgstr ""
 
 #: templates/kalendas_widget.php:10
 msgid "Google calendar feed"
-msgstr "Fuente de Calendario Google"
+msgstr ""
 
 #: templates/kalendas_options.php:3
 msgid "Kalendas' Options"
-msgstr "Opciones de Kalendas"
+msgstr ""
 
 #: templates/kalendas_options.php:8
 msgid "Date format"
-msgstr "Formato de fecha"
+msgstr ""
 
 #: templates/kalendas_options.php:9
 msgid "Doumentation about date format."
-msgstr "Documentación sobre formato de fecha."
+msgstr ""
 
 #: templates/kalendas_options.php:12
 msgid "Show events since"
-msgstr "Mostrar eventos desde"
+msgstr ""
 
 #: templates/kalendas_options.php:15
 msgid "One day before"
-msgstr "Un día antes"
+msgstr ""
 
 #: templates/kalendas_options.php:16
 msgid "Two days before"
-msgstr "Dos días antes"
+msgstr ""
 
 #: templates/kalendas_options.php:17
 msgid "One week before"
-msgstr "Una semana antes"
+msgstr ""
 
 #: templates/kalendas_options.php:18
 msgid "Two weeks before"
-msgstr "Dos semanas antes"
+msgstr ""
 
 #: templates/kalendas_options.php:19
 msgid "One month before"
-msgstr "Un mes antes"
+msgstr ""
 
 #: templates/kalendas_options.php:24
 msgid "Show events until"
-msgstr "Mostrar eventos hasta"
+msgstr ""
 
 #: templates/kalendas_options.php:27
 msgid "One day after"
-msgstr "Un día después"
+msgstr ""
 
 #: templates/kalendas_options.php:28
 msgid "Two days after"
-msgstr "Dos días después"
+msgstr ""
 
 #: templates/kalendas_options.php:29
 msgid "One week after"
-msgstr "Una semana después"
+msgstr ""
 
 #: templates/kalendas_options.php:30
 msgid "Two weeks after"
-msgstr "Dos semanas después"
+msgstr ""
 
 #: templates/kalendas_options.php:31
 msgid "One month after"
-msgstr "Un mes después"
+msgstr ""
 
 #: templates/kalendas_options.php:36
 msgid "Show at the most"
-msgstr "Mostrar máximo"
+msgstr ""
 
 #: templates/kalendas_options.php:40
 msgid "Update every"
-msgstr "Actualizar cada"
+msgstr ""
 
 #: templates/kalendas_options.php:42
 msgid "hour"
-msgstr "hora"
+msgstr ""
 
 #: templates/kalendas_options.php:43
 msgid "day"
-msgstr "día"
+msgstr ""
 
 #: templates/kalendas_options.php:49
 msgid "Update Options"
-msgstr "Actualizar Opciones"
+msgstr ""
 

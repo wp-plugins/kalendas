@@ -3,7 +3,7 @@ Contributors: sebaxtian
 Tags: google calendar, calendar, events
 Requires at least: 2.9
 Tested up to: 2.9.2
-Stable tag: 0.1.3.1
+Stable tag: 0.1.4
 
 Kalendas gets your events from multiple Google Calendars and displays them in your page using a time range.
 
@@ -19,12 +19,11 @@ Screenshots are in spanish because it's my native language. As you should know y
 
 == Installation ==
 
-1. Install __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__.
-2. Decompress kalendas.zip and upload `/kalendas/` to the `/wp-content/plugins/` directory.
-3. Activate the plugin through the __Plugins__ menu in WordPress
-4. Configure Kalendas to set your time range.
-5. Add the widget into your side bar, each with your Calendar RSS or XML descriptor.
-6. Add the tag [kalendas:title,source] in a page or post where you want an event list.
+1. Decompress kalendas.zip and upload `/kalendas/` to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the __Plugins__ menu in WordPress
+3. Configure Kalendas to set your time range.
+4. Add the widget into your side bar, each with your Calendar RSS or XML descriptor.
+5. Add the tag [kalendas:title,source] in a page or post where you want an event list.
 
 == Frequently Asked Questions ==
 
@@ -36,10 +35,6 @@ with other. Feedbacks would be appreciated.
 = It shows events outside the time range I set =
 
 Maybe your Google Calendar and your server have a diferent 'timezone' reference. Check this in your WordPress configuration and your Calendar settings. 
-
-= It says something about minimax. What's this? =
-
-This plugin requires __[minimax](http://wordpress.org/extend/plugins/minimax/ "A minimal Ajax library")__ in order to work.
 
 = Can I set my own CSS? =
 
@@ -62,6 +57,9 @@ The calndar must be public for Kalendas to get it. One of the screenshots in the
 5. Infogram to set a Google Calendar as public data and where to get the XML.
 
 == Changelog ==
+
+= 0.1.4 =
+* First release to not use minimax.
 
 = 0.1.3.1 =
 * Oops, another bug with time zone. Bug resolved.

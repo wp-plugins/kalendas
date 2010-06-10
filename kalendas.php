@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.1.3.1
+Version: 0.1.4
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -26,7 +26,6 @@ Author URI: http://www.sebaxtian.com/
 */
 
 define('KALENDAS_CACHE_AGE', 3600); //Elapsed time to update cache (1 hour)
-define('KALENDAS_MNMX_V', 0.3);
 define('KALENDAS_XML_V', 1);
 
 add_action('wp_head', 'kalendas_header');
@@ -34,6 +33,8 @@ add_action('init', 'kalendas_text_domain');
 add_action('admin_menu', 'kalendas_menus');
 add_action('activate_plugin', 'kalendas_activate');
 add_filter('the_content', 'kalendas_content');
+add_action('wp_ajax_kalendas_ajax', 'kalendas_ajax');
+add_action('wp_ajax_nopriv_kalendas_ajax', 'kalendas_ajax');
 
 /**
 * To declare where are the mo files (i18n).
@@ -63,6 +64,70 @@ function kalendas_header() {
 	var tb_pathToImage = '".get_option('siteurl')."/".WPINC."/js/thickbox/loadingAnimation.gif';
 	var tb_closeImage = '".get_option('siteurl')."/". WPINC."/js/thickbox/tb-close.png';
 	</script>";
+	
+	// Declare we use JavaScript SACK library for Ajax
+	wp_print_scripts( array( 'sack' ));
+
+	// Define custom JavaScript function
+	echo "
+	<script type='text/javascript'>
+	//<![CDATA[
+	
+	var loading_kalendas_img = new Image(); 
+	loading_kalendas_img.src = '".kalendas_plugin_url('/img/loading-page.gif')."';
+	
+	function kalendas_feed( source, rand )
+	{
+		var kalendas_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
+		
+		//Our plugin sack configuration
+		kalendas_sack.execute = 0;
+		kalendas_sack.method = 'POST';
+		kalendas_sack.setVar( 'action', 'kalendas_ajax' );
+		kalendas_sack.element = 'kalendas'+rand;
+		
+		//The ajax call data
+		kalendas_sack.setVar( 'source', source );
+		kalendas_sack.setVar( 'rand', rand );
+		
+		//What to do on error?
+		kalendas_sack.onError = function() {
+			var aux = document.getElementById(kalendas_sack.element);
+			aux.innerHTMLsetAttribute='<strong>".__("Can\'t read Kalendas Feed", 'kalendas')."</strong>';
+		};
+		
+		kalendas_sack.onCompletion = function() {
+			tb_init('a.thickbox, area.thickbox, input.thickbox');
+		}
+		
+		kalendas_sack.runAJAX();
+		
+		return true;
+
+	} // end of JavaScript function kalendas_feed
+	//]]>
+	</script>";
+}
+
+/**
+* Function to answer the ajax call.
+* This function should be called by an action.
+*
+* @access public
+*/
+function kalendas_ajax() {
+	//Get the data from the post call
+	$source = urldecode($_POST['source']);
+	$rand = urldecode($_POST['rand']);
+
+	//Update this calendar
+	kalendas_create($source);
+	
+	//Get the new data from this calendar.
+	$results = kalendas_htmlCode($source, $rand);
+
+	// Compose JavaScript for return
+	die( $results );
 }
 
 
@@ -105,7 +170,7 @@ function kalendas_sort($a, $b) {
 * @param boolean force Defines if we should update the iRate now or if we have
  to wait for the timestamp.
 */
-function kalendas_list_events($source) {
+function kalendas_list_events($source, $rand) {
 	
 	global $wp_locale;
 	
@@ -113,7 +178,6 @@ function kalendas_list_events($source) {
 	
 	$options = get_option('kalendas_options');
 	//$filename = kalendas_cache_filename();
-	$rand = mt_rand(111111,999999);
 	if($data = get_transient('kalendas-'.$md5)) {
 		$data = new SimpleXMLElement($data);
 		$event_list = array();
@@ -172,7 +236,7 @@ function kalendas_list_events($source) {
 				//Event window
 				$file = get_theme_root()."/".get_template()."/kalendas_event.tpl"; //Form from the theme?
 				if(!file_exists($file)) $file = ABSPATH."wp-content/plugins/kalendas/templates/kalendas_event.tpl"; //Nope
-				$window = mnmx_readfile($file);
+				$window = kalendas_readfile($file);
 				$window = str_replace('%title%', $event->title, $window);
 				$kalendas_date_format = $options['date_format'];
 				
@@ -194,18 +258,12 @@ function kalendas_list_events($source) {
 	
 	//Section to update the gallery
 	if(current_user_can('activate_plugins')) { //can this user update the events list?
-		//Add a minimax function to update the gallery
-		$rand = mt_rand(111111,999999);
+		//Add an Ajax function to update the gallery
 		$nonce = wp_create_nonce('kalendas');
-		$link="<div style='width: 100%; padding:7px;' ><div id='throbber-kalendas$rand' class='kalendas-img-off'><a style='cursor : pointer;' onclick=\"var update_kalendas$rand = function() {
-			if (kalendas$rand.xhr.readyState == 4 && kalendas$rand.xhr.status==200 ) {
-				window.location.reload();
-			}
-		}
-		var kalendas$rand=new minimax('".kalendas_plugin_url('/ajax/content.php')."', false);
-		kalendas$rand.setThrobber('throbber-kalendas$rand', 'kalendas-img-on', 'kalendas-img-off');
-		kalendas$rand.setFunc(update_kalendas$rand);
-		kalendas$rand.post('nonce=$nonce&amp;update=1&amp;source=$source');\" />".__('Update','kalendas')."</a></div></div>
+		$link="<div style='width: 100%; padding:7px;' ><div id='throbber-kalendas$rand' class='kalendas-img-off'><a style='cursor : pointer;' onclick=\"var aux = document.getElementById('throbber-kalendas$rand');
+				aux.setAttribute('class', 'kalendas-img-on');
+				aux.setAttribute('className', 'kalendas-img-on'); //IE sucks
+				kalendas_feed( '$source', $rand );\" />".__('Update','kalendas')."</a></div></div>
 		";
 	}
 		
@@ -263,7 +321,7 @@ function kalendas_create( $source ) {
 	$url = $source."?start-min=$start_date&start-max=$end_date";
 	
 	$out = false;
-	if($data = mnmx_readfile($url)) { 
+	if($data = kalendas_readfile($url)) { 
 		if($data[0]=="<") {
 			$data = new SimpleXMLElement($data); //Parse the XML
 			$out="<?xml version = '1.0' encoding = 'UTF-8'?><events version='".KALENDAS_XML_V."' timestamp='$timestamp'>";
@@ -324,33 +382,35 @@ function kalendas_not_ready_file( $source )
 * @access public
 * @return string The HTML code.
 */
-function kalendas_htmlCode( $source ) {
+function kalendas_htmlCode( $source, $rand=false ) {
 	
 	$md5 = md5($source);
 	
 	//Suppose we don't have to update
-	$update=false;	
+	$update=false;
+	
+	if(!$rand) $rand = mt_rand(111111,999999);
 		
 	if(!kalendas_not_ready_file($source)) { //If it's a readable file
 		//We have data, so we can try to show the photo.
-		$answer = kalendas_list_events($source);
+		$answer = kalendas_list_events($source, $rand);
 	} else { 
 		//Try to update the gallery.
 		if(kalendas_create($source)) { //If we can update the file
 			//We have data, so we can try to show the photo.
-			$answer = kalendas_list_events($source);
+			$answer = kalendas_list_events($source, $rand);
 		} else { 
 			$answer = __('Can\'t create the events list. Check your options.', 'kalendas' );
 		}
 	}
 	
-	return $answer;
+	return "<div id='kalendas$rand'>$answer</div>";
 
 }
 
 
 /**
-* Returns the html code with 'minimax' script and div.
+* Returns the html code with the 'Ajax' script and div.
 * Add this code into the html page to create the RSS reader.
 *
 * @access public
@@ -360,37 +420,13 @@ function kalendas_container( $source ) {
 	$md5 = md5($source);
 	$answer="";
 	
-	// If we have minimax, go ahead
-	if(function_exists('minimax_version') && minimax_version()>=KALENDAS_MNMX_V) {
-		$num = mt_rand();
-		$url = kalendas_plugin_url('/ajax/content.php');
-		$nonce = wp_create_nonce('kalendas');
-		// Create the post to ask for the rss feeds
-		$post="nonce=$nonce&amp;source=$source";
-		// Create the div where we want the feed to be shown, and the instance of minimax
-		$answer.="\n<div id='kalendas$num' class='kalendas'><table><tr><td><img class='kalendas' src='".get_bloginfo('wpurl')."/wp-content/plugins/kalendas/img/loading.gif' alt='RSS' border='0' /></td><td>".__('Loading Events list...','kalendas')."</td></tr></table></div><script type='text/javascript'>
-		
-		var update_eventslist = function() {
-			if (mx_kalendas$num.xhr.readyState == 4 && mx_kalendas$num.xhr.status==200 ) {
-				var text=mx_kalendas$num.xhr.responseText;
-				document.getElementById('kalendas$num').innerHTML=text;
-				var tb_pathToImage = '".get_bloginfo( 'wpurl' )."/wp-includes/js/thickbox/loadingAnimation.gif';
-				var tb_closeImage = '".get_bloginfo( 'wpurl' )."/wp-includes/js/thickbox/tb-close.png';
-				tb_init('a.thickbox, area.thickbox, input.thickbox');
-			}
-		}
-		
-		mx_kalendas$num = new minimax('$url', 'kalendas$num');
-		mx_kalendas$num.setFunc(update_eventslist);
-		mx_kalendas$num.post('$post');
-		
-		
-		</script>";
-	} else { // If minimax isn't installed, ask for it to the user
-		$answer.= "<div id='kalendas'><label>";
-		$answer.= sprintf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'kalendas'), "http://wordpress.org/extend/plugins/minimax/", KALENDAS_MNMX_V);
-		$answer.= "</label></div>";
-	}
+	$rand = mt_rand(111111,999999);
+	$url = kalendas_plugin_url('/ajax/content.php');
+	$nonce = wp_create_nonce('kalendas');
+	// Create the post to ask for the rss feeds
+	$post="nonce=$nonce&amp;source=$source";
+	// Create the div where we want the feed to be shown, and the instance of kalendas_feed
+	$answer.="\n<div id='kalendas$rand' class='kalendas'><table><tr><td><img class='kalendas' src='".get_bloginfo('wpurl')."/wp-content/plugins/kalendas/img/loading.gif' alt='RSS' border='0' /></td><td>".__('Loading Events list...','kalendas')."</td></tr></table></div><script type='text/javascript'>kalendas_feed('$source', $rand);</script>";
 	return $answer;
 }
 
@@ -492,7 +528,7 @@ function kalendas_options()
 * @return The content with the changes the plugin have to do.
 */
 function kalendas_content($content) {
-
+﻿
 	//Show a specific event list
 	$search = "@(?:<p>)*\s*\[kalendas\s*:([^,]+),([^\]]+)\]\s*(?:</p>)*@i";
 	if(preg_match_all($search, $content, $matches)) {
@@ -500,12 +536,12 @@ function kalendas_content($content) {
 			foreach($matches[0] as $key=>$search) {
 				// Get data from tag
 				$title = $matches[1][$key];
-				$source = $matches[2][$key];
+				$source = urldecode($matches[2][$key]);
 				$source = str_replace('/public/basic', '/public/full', $source);
 								
 				$replace = "<h2>$title</h2>"; 
 				if(kalendas_not_ready_file($source)) {
-					$replace.= kalendas_container($source);	
+					$replace.= kalendas_container($source);
 				} else {
 					$replace.= kalendas_htmlCode($source);
 				}
@@ -575,19 +611,11 @@ if((float)$wp_version >= 2.8) { //The new widget system
 		 *	admin control form
 		 */	 	
 		function form($instance) {
-			if(!function_exists('minimax_version') || minimax_version()<KALENDAS_MNMX_V) { ?>
-				<p>
-					<label>
-						<?php printf(__('You have to install <a href="%s" target="_BLANK">minimax %1.1f</a> in order for this plugin to work.', 'kalendas'), "http://wordpress.org/extend/plugins/minimax/", KALENDAS_MNMX_V); ?>
-					</label>
-				</p><?
-			} else {
-				$default = 	array('title'=> '', 'source' => '');
-				$instance = wp_parse_args( (array) $instance, $default );
-				
-				//Show the widget control.
-				include('templates/kalendas_widget.php');
-			}
+			$default = 	array('title'=> '', 'source' => '');
+			$instance = wp_parse_args( (array) $instance, $default );
+			
+			//Show the widget control.
+			include('templates/kalendas_widget.php');
 		}
 	}
 
@@ -598,6 +626,82 @@ if((float)$wp_version >= 2.8) { //The new widget system
 		register_widget('KalendasWidget');
 	}
 
+}
+
+/**
+* A kind of readfile function to determine if use Curl or fopen.
+*
+* @access public
+* @param string filename URI of the File to open
+* @return The content of the file
+*/
+function kalendas_readfile($filename)
+{
+	//Just to declare the variables
+	$data = false;
+	$have_curl = false;
+	$local_file = false;
+	
+	if(function_exists(curl_init)) { //do we have curl installed?
+		$have_curl = true;
+	}
+	
+	$search = "@([\w]*)://@i"; //is the file to read a local file?
+	if (!preg_match_all($search, $filename, $matches)) {
+		$local_file = true;
+	}
+	
+	if($local_file) { //A local file can be handle by fopen
+		if($fop = @fopen($filename, 'r')) {
+			$data = null;
+			while(!feof($fop))
+				$data .= fread($fop, 1024);
+			fclose($fop);
+		}
+	} else { //Oops, an external file
+		if($have_curl) { //Try with curl
+			if($ch = curl_init($filename)) {
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_HEADER, 0);
+				$data=curl_exec($ch);
+				curl_close($ch);
+			}
+		} else { //Try with fsockopen
+			$url = parse_url($filename);
+			if($fp = fsockopen($url['host'], 80)) {
+				//Enviar datos POST
+				fputs($fp, "POST " . $url['path'] . " HTTP/1.0\r\n");
+				fputs($fp, "Content-Type: application/x-www-form-urlencoded\r\n");
+				fputs($fp, "Content-Length: " . strlen($url['query']) . "\r\n");
+				fputs($fp, "Connection: close \r\r\n\n");
+				fputs($fp, $url['query'] . "\r\n");
+				 
+				//Obtener datos
+				while(!feof($fp))
+				    $data .= fgets($fp, 1024);
+				fclose($fp);
+				
+				$chunked = false;
+				$http_status = trim(substr($data, 0, strpos($data, "\n")));
+				if ( $http_status != 'HTTP/1.1 200 OK' ) {
+					die('The web service endpoint returned a "' . $http_status . '" response');
+				}
+				if ( strpos($data, 'Transfer-Encoding: chunked') !== false ) {
+					$temp = trim(strstr($data, "\r\n\r\n"));
+					$data = '';
+					$length = trim(substr($temp, 0, strpos($temp, "\r")));
+					while ( trim($temp) != "0" && ($length = trim(substr($temp, 0, strpos($temp, "\r")))) != "0" ) {
+						$data .= trim(substr($temp, strlen($length)+2, hexdec($length)));
+						$temp = trim(substr($temp, strlen($length) + 2 + hexdec($length)));
+					}
+				} elseif ( strpos($data, 'HTTP/1.1 200 OK') !== false ) {
+					$data = trim(strstr($data, "\r\n\r\n"));
+				}
+			}
+		}
+	}
+
+	return $data;
 }
 
 ?>
