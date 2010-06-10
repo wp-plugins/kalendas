@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.1.4
+Version: 0.1.4.1
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -263,7 +263,7 @@ function kalendas_list_events($source, $rand) {
 		$link="<div style='width: 100%; padding:7px;' ><div id='throbber-kalendas$rand' class='kalendas-img-off'><a style='cursor : pointer;' onclick=\"var aux = document.getElementById('throbber-kalendas$rand');
 				aux.setAttribute('class', 'kalendas-img-on');
 				aux.setAttribute('className', 'kalendas-img-on'); //IE sucks
-				kalendas_feed( '$source', $rand );\" />".__('Update','kalendas')."</a></div></div>
+				kalendas_feed( '$source', $rand );\">".__('Update','kalendas')."</a></div></div>
 		";
 	}
 		
