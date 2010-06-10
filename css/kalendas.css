@@ -1,4 +1,5 @@
 div.kalendas-img-off {
+	min-height: 14px;
 	font-size: 80%;
 	float: right;
 	width: 80px;
@@ -7,6 +8,7 @@ div.kalendas-img-off {
 }
 
 div.kalendas-img-on {
+	min-height: 14px;
 	font-size: 80%; 
 	float: right;
 	width: 80px;
