@@ -528,7 +528,6 @@ function kalendas_options()
 * @return The content with the changes the plugin have to do.
 */
 function kalendas_content($content) {
-﻿
 	//Show a specific event list
 	$search = "@(?:<p>)*\s*\[kalendas\s*:([^,]+),([^\]]+)\]\s*(?:</p>)*@i";
 	if(preg_match_all($search, $content, $matches)) {
@@ -551,7 +550,6 @@ function kalendas_content($content) {
 		}
 	}
 	return $content;
-	
 }
 
 /**
