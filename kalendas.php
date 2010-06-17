@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.1.4.2
+Version: 0.1.4.3
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -668,20 +668,19 @@ function kalendas_readfile($filename)
 			$url = parse_url($filename);
 			
 			if($fp = fsockopen($url['host'], 80)) {
-				//Enviar datos POST
-				fputs($fp, "GET " . $url['path'] . " HTTP/1.0\r\n");
-				fputs($fp, "Host: " . $url['host'] . "\r\n");
-				fputs($fp, "Connection: close \r\r\n\n");
-				fputs($fp, $url['query'] . "\r\n");
+				//Send GET data
+				fputs($fp, "GET " . $url['path'] . "?" . $url['query'] . " HTTP/1.1\r\n");
+				fputs($fp, "HOST: " . $url['host'] . " \r\n");
+				fputs($fp, "Connection: close \r\n\r\n");
 				 
-				//Obtener datos
+				//Read data
 				while(!feof($fp))
 				    $data .= fgets($fp, 1024);
 				fclose($fp);
 				
 				$chunked = false;
 				$http_status = trim(substr($data, 0, strpos($data, "\n")));
-				if ( $http_status != 'HTTP/1.0 200 OK' ) {
+				if ( $http_status != 'HTTP/1.1 200 OK' ) {
 					die('The web service endpoint returned a "' . $http_status . '" response');
 				}
 				if ( strpos($data, 'Transfer-Encoding: chunked') !== false ) {
