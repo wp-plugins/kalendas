@@ -2,7 +2,7 @@
 Contributors: sebaxtian
 Tags: google calendar, calendar, events
 Requires at least: 2.9
-Tested up to: 2.9.2
+Tested up to: 3.0
 Stable tag: 0.2
 
 Kalendas gets your events from multiple Google Calendars and displays them in your page using a time range.
