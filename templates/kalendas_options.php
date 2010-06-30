@@ -17,6 +17,9 @@
 						<option value='7'<?php if ($options['days_begin'] == 7) echo('selected'); ?>><?php echo _e('One week before', 'kalendas') ?></option>
 						<option value='14'<?php if ($options['days_begin'] == 14) echo('selected'); ?>><?php echo _e('Two weeks before', 'kalendas') ?></option>
 						<option value='31'<?php if ($options['days_begin'] == 31) echo('selected'); ?>><?php echo _e('One month before', 'kalendas') ?></option>
+						<option value='62'<?php if ($options['days_begin'] == 62) echo('selected'); ?>><?php echo _e('Two months before', 'kalendas') ?></option>
+						<option value='182'<?php if ($options['days_begin'] == 182) echo('selected'); ?>><?php echo _e('Six months before', 'kalendas') ?></option>
+						<option value='365'<?php if ($options['days_begin'] == 365) echo('selected'); ?>><?php echo _e('One year before', 'kalendas') ?></option>
 					</select>
 				</td>
 			</tr>
@@ -29,6 +32,9 @@
 						<option value='7'<?php if ($options['days_end'] == 7) echo('selected'); ?>><?php echo _e('One week after', 'kalendas') ?></option>
 						<option value='14'<?php if ($options['days_end'] == 14) echo('selected'); ?>><?php echo _e('Two weeks after', 'kalendas') ?></option>
 						<option value='31'<?php if ($options['days_end'] == 31) echo('selected'); ?>><?php echo _e('One month after', 'kalendas') ?></option>
+						<option value='62'<?php if ($options['days_end'] == 62) echo('selected'); ?>><?php echo _e('Two months after', 'kalendas') ?></option>
+						<option value='182'<?php if ($options['days_end'] == 182) echo('selected'); ?>><?php echo _e('Six months after', 'kalendas') ?></option>
+						<option value='365'<?php if ($options['days_end'] == 365) echo('selected'); ?>><?php echo _e('One year after', 'kalendas') ?></option>
 					</select>
 				</td>
 			</tr>

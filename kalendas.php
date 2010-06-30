@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.1.4.3
+Version: 0.2
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -26,6 +26,7 @@ Author URI: http://www.sebaxtian.com/
 */
 
 define('KALENDAS_CACHE_AGE', 3600); //Elapsed time to update cache (1 hour)
+define('KALENDAS_HEADER_V', 1);
 define('KALENDAS_XML_V', 1);
 
 add_action('wp_head', 'kalendas_header');
@@ -67,46 +68,20 @@ function kalendas_header() {
 	
 	// Declare we use JavaScript SACK library for Ajax
 	wp_print_scripts( array( 'sack' ));
+	
+	//Local URL
+	$url = get_bloginfo( 'wpurl' );
+	$local_url = parse_url( $url );
+	$aux_url   = parse_url(wp_guess_url());
+	$url = str_replace($local_url['host'], $aux_url['host'], $url);
 
 	// Define custom JavaScript function
 	echo "
 	<script type='text/javascript'>
-	//<![CDATA[
-	
-	var loading_kalendas_img = new Image(); 
-	loading_kalendas_img.src = '".kalendas_plugin_url('/img/loading-page.gif')."';
-	
-	function kalendas_feed( source, rand )
-	{
-		var kalendas_sack = new sack('".get_bloginfo( 'wpurl' )."/wp-admin/admin-ajax.php' );
-		
-		//Our plugin sack configuration
-		kalendas_sack.execute = 0;
-		kalendas_sack.method = 'POST';
-		kalendas_sack.setVar( 'action', 'kalendas_ajax' );
-		kalendas_sack.element = 'kalendas'+rand;
-		
-		//The ajax call data
-		kalendas_sack.setVar( 'source', source );
-		kalendas_sack.setVar( 'rand', rand );
-		
-		//What to do on error?
-		kalendas_sack.onError = function() {
-			var aux = document.getElementById(kalendas_sack.element);
-			aux.innerHTMLsetAttribute='<strong>".__("Can\'t read Kalendas Feed", 'kalendas')."</strong>';
-		};
-		
-		kalendas_sack.onCompletion = function() {
-			tb_init('a.thickbox, area.thickbox, input.thickbox');
-		}
-		
-		kalendas_sack.runAJAX();
-		
-		return true;
-
-	} // end of JavaScript function kalendas_feed
-	//]]>
-	</script>";
+	kalendas_i18n_error = '".__("Can\'t read Kalendas Feed", 'kalendas')."';
+	kalendas_url = '$url';
+	</script>
+	<script language='javascript' type='text/javascript' src='".$url."/wp-content/plugins/kalendas/kalendas.js?ver=".KALENDAS_HEADER_V."'></script>";
 }
 
 /**
@@ -208,7 +183,7 @@ function kalendas_list_events($source, $rand) {
 		
 		$first = true;
 		if(count($event_list)>0) {
-			$event_list = array_slice($event_list,0,10); //Max number of events to show 
+			$event_list = array_slice($event_list,0,$options['max_events']); //Max number of events to show 
 			$num=0;
 			foreach($event_list as $event) {
 				$num++;
@@ -267,7 +242,7 @@ function kalendas_list_events($source, $rand) {
 		";
 	}
 		
-	return $answer.$script.$link;
+	return apply_filters('comment_text', $answer).$script.$link;
 
 }
 
@@ -305,16 +280,24 @@ function kalendas_create( $source ) {
 	$begin = $options['days_begin'];
 	if($begin<31) {
 		$start_date = 	mktime(date("H")-$hour, 0, 0, date("n"), date("j")-$begin, date("Y"));
-	} else { // A month!!!!
-		$start_date = 	mktime(date("H")-$hour, 0, 0, date("n")-1, date("j"), date("Y"));
+	} else { // Months!!!!
+		$months = 1;
+		if($begin == 62) $months = 2;
+		if($begin == 182) $months = 6;
+		if($begin == 365) $months = 12;
+		$start_date = 	mktime(date("H")-$hour, 0, 0, date("n")-$months, date("j"), date("Y"));
 	}
 	$start_date = date("Y-m-d\TH:i:s", $start_date);
 	
 	$end = $options['days_end'];
 	if($end<31) {
 		$end_date = 	mktime(date("H")-$hour+23, 59, 59, date("n"), date("j")+$end, date("Y"));
-	} else { // A month!!!!
-		$end_date = 	mktime(date("H")-$hour+23, 59, 59, date("n")+1, date("j"), date("Y"));
+	} else { // Months!!!!
+		$months = 1;
+		if($end == 62) $months = 2;
+		if($end == 182) $months = 6;
+		if($end == 365) $months = 12;
+		$end_date = 	mktime(date("H")-$hour+23, 59, 59, date("n")+$months, date("j"), date("Y"));
 	}
 	$end_date = date("Y-m-d\TH:i:s", $end_date);
 	
