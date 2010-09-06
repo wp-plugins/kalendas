@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.2
+Version: 0.2.1
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -55,33 +55,40 @@ function kalendas_text_domain() {
 * @access public
 */
 function kalendas_header() {
-	$css = get_theme_root()."/".get_template()."/kalendas.css";
-	if(file_exists($css)) {
-		echo "<link rel='stylesheet' href='".get_bloginfo('template_directory')."/kalendas.css' type='text/css' media='screen' />";
-	} else {
-		echo "<link rel='stylesheet' href='".kalendas_plugin_url("/css/kalendas.css")."' type='text/css' media='screen' />";
-	}
-	echo "<script type='text/javascript'>	
-	var tb_pathToImage = '".get_option('siteurl')."/".WPINC."/js/thickbox/loadingAnimation.gif';
-	var tb_closeImage = '".get_option('siteurl')."/". WPINC."/js/thickbox/tb-close.png';
-	</script>";
-	
-	// Declare we use JavaScript SACK library for Ajax
-	wp_print_scripts( array( 'sack' ));
-	
+
 	//Local URL
 	$url = get_bloginfo( 'wpurl' );
 	$local_url = parse_url( $url );
 	$aux_url   = parse_url(wp_guess_url());
 	$url = str_replace($local_url['host'], $aux_url['host'], $url);
-
+	
 	// Define custom JavaScript function
-	echo "
-	<script type='text/javascript'>
+	echo "<script type='text/javascript'>
 	kalendas_i18n_error = '".__("Can\'t read Kalendas Feed", 'kalendas')."';
 	kalendas_url = '$url';
+	var tb_pathToImage = '".get_option('siteurl')."/".WPINC."/js/thickbox/loadingAnimation.gif';
+	var tb_closeImage = '".get_option('siteurl')."/". WPINC."/js/thickbox/tb-close.png';
 	</script>
-	<script language='javascript' type='text/javascript' src='".$url."/wp-content/plugins/kalendas/kalendas.js?ver=".KALENDAS_HEADER_V."'></script>";
+	";
+	
+	//Declare javascript
+	wp_register_script('kalendas', $url.'/wp-content/plugins/kalendas/kalendas.js', array('sack', 'thickbox'), KALENDAS_HEADER_V);
+	wp_enqueue_script('kalendas');
+	
+	//Define custom CSS URI
+	$css = get_theme_root()."/".get_template()."/kalendas.css";
+	if(file_exists($css)) {
+		$css_register = get_bloginfo('template_directory')."/kalendas.css";
+	} else {
+		$css_register = kalendas_plugin_url("/css/kalendas.css");
+	}
+	//Declare style
+	wp_register_style('kalendas', $css_register, false, KALENDAS_HEADER_V);
+	wp_enqueue_style('kalendas');
+	
+	// Declare we use JavaScript SACK library for Ajax
+	wp_print_scripts( array( 'kalendas' ));
+	wp_print_styles( array( 'kalendas' ));
 }
 
 /**
