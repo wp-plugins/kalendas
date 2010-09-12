@@ -429,7 +429,7 @@ function kalendas_container( $source ) {
 * @access public
 */
 function kalendas_menus() {
-	add_options_page('Kalendas', 'Kalendas', 10, 'kalendasoptions', 'kalendas_options');
+	add_options_page('Kalendas', 'Kalendas', 'moderate_comments', 'kalendasoptions', 'kalendas_options');
 }
 
 
