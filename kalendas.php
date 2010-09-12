@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.2.1
+Version: 0.2.2
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -32,10 +32,10 @@ define('KALENDAS_XML_V', 1);
 add_action('wp_head', 'kalendas_header');
 add_action('init', 'kalendas_text_domain');
 add_action('admin_menu', 'kalendas_menus');
-add_action('activate_plugin', 'kalendas_activate');
 add_filter('the_content', 'kalendas_content');
 add_action('wp_ajax_kalendas_ajax', 'kalendas_ajax');
 add_action('wp_ajax_nopriv_kalendas_ajax', 'kalendas_ajax');
+register_activation_hook(__FILE__, 'kalendas_activate');
 
 /**
 * To declare where are the mo files (i18n).
@@ -45,7 +45,7 @@ add_action('wp_ajax_nopriv_kalendas_ajax', 'kalendas_ajax');
 */
 function kalendas_text_domain() {
 	add_thickbox();
-	load_plugin_textdomain('kalendas', 'wp-content/plugins/kalendas/lang');
+	load_plugin_textdomain('kalendas', false, 'kalendas/lang');
 }
 
 /**
@@ -157,6 +157,7 @@ function kalendas_list_events($source, $rand) {
 	global $wp_locale;
 	
 	$md5 = md5($source);
+	$answer = $script = false;
 	
 	$options = get_option('kalendas_options');
 	//$filename = kalendas_cache_filename();
@@ -460,6 +461,7 @@ function kalendas_options()
 {
 	global $wpdb;
 	$messages=array();
+	$mode_x = $mode = false;
 
 	$options = get_option('kalendas_options');
 	if(!$options) {
@@ -471,8 +473,8 @@ function kalendas_options()
 			'hours_update'=>24 );
 	}
 
-	$mode_x=$_POST['mode_x']; //Someting to execute?
-	$mode=$_GET['mode']; //Something to show?
+	if(isset($_POST['mode_x'])) $mode_x=$_POST['mode_x']; //Someting to execute?
+	if(isset($_POST['mode'])) $mode=$_GET['mode']; //Something to show?
 	
 	switch($mode_x) {
 		case 'manage_x': //Update the config data
@@ -608,7 +610,7 @@ if((float)$wp_version >= 2.8) { //The new widget system
 	}
 
 	/* register widget when loading the WP core */
-	add_action('widgets_init', kalendas_register_widgets);
+	add_action('widgets_init', 'kalendas_register_widgets');
 
 	function kalendas_register_widgets() {
 		register_widget('KalendasWidget');
@@ -630,7 +632,7 @@ function kalendas_readfile($filename)
 	$have_curl = false;
 	$local_file = false;
 	
-	if(function_exists(curl_init)) { //do we have curl installed?
+	if(function_exists('curl_init')) { //do we have curl installed?
 		$have_curl = true;
 	}
 	
