@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kalendas\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-30 14:10-0500\n"
-"PO-Revision-Date: 2010-06-30 14:10-0500\n"
+"POT-Creation-Date: 2010-09-27 10:25-0500\n"
+"PO-Revision-Date: 2010-09-27 10:25-0500\n"
 "Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
 "Language-Team: sebaxtian <sebaxtian@gawab.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,49 +20,49 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: templates\n"
 
-#: kalendas.php:81
+#: kalendas.php:67
 msgid "Can\\'t read Kalendas Feed"
 msgstr ""
 
-#: kalendas.php:199
-#: templates/kalendas_options.php:14
-#: templates/kalendas_options.php:29
+#: kalendas.php:207
+#: templates/kalendas_options.php:18
+#: templates/kalendas_options.php:33
 msgid "Today"
 msgstr ""
 
-#: kalendas.php:200
+#: kalendas.php:208
 msgid "Tomorrow"
 msgstr ""
 
-#: kalendas.php:222
+#: kalendas.php:230
 msgid "When"
 msgstr ""
 
-#: kalendas.php:223
+#: kalendas.php:231
 msgid "Where"
 msgstr ""
 
-#: kalendas.php:230
+#: kalendas.php:238
 msgid "No events programmed."
 msgstr ""
 
-#: kalendas.php:241
+#: kalendas.php:249
 msgid "Update"
 msgstr ""
 
-#: kalendas.php:386
+#: kalendas.php:394
 msgid "Can't create the events list. Check your options."
 msgstr ""
 
-#: kalendas.php:412
+#: kalendas.php:420
 msgid "Loading Events list..."
 msgstr ""
 
-#: kalendas.php:484
+#: kalendas.php:493
 msgid "Options saved"
 msgstr ""
 
-#: kalendas.php:554
+#: kalendas.php:563
 msgid "Add an event list to your sidebar."
 msgstr ""
 
@@ -82,99 +82,99 @@ msgstr ""
 msgid "Date format"
 msgstr ""
 
-#: templates/kalendas_options.php:9
-msgid "Doumentation about date format."
-msgstr ""
-
-#: templates/kalendas_options.php:12
-msgid "Show events since"
-msgstr ""
-
-#: templates/kalendas_options.php:15
-msgid "One day before"
+#: templates/kalendas_options.php:13
+msgid "<a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'>Documentation about date format</a>."
 msgstr ""
 
 #: templates/kalendas_options.php:16
-msgid "Two days before"
-msgstr ""
-
-#: templates/kalendas_options.php:17
-msgid "One week before"
-msgstr ""
-
-#: templates/kalendas_options.php:18
-msgid "Two weeks before"
+msgid "Show events since"
 msgstr ""
 
 #: templates/kalendas_options.php:19
-msgid "One month before"
+msgid "One day before"
 msgstr ""
 
 #: templates/kalendas_options.php:20
-msgid "Two months before"
+msgid "Two days before"
 msgstr ""
 
 #: templates/kalendas_options.php:21
-msgid "Six months before"
+msgid "One week before"
 msgstr ""
 
 #: templates/kalendas_options.php:22
+msgid "Two weeks before"
+msgstr ""
+
+#: templates/kalendas_options.php:23
+msgid "One month before"
+msgstr ""
+
+#: templates/kalendas_options.php:24
+msgid "Two months before"
+msgstr ""
+
+#: templates/kalendas_options.php:25
+msgid "Six months before"
+msgstr ""
+
+#: templates/kalendas_options.php:26
 msgid "One year before"
 msgstr ""
 
-#: templates/kalendas_options.php:27
+#: templates/kalendas_options.php:31
 msgid "Show events until"
 msgstr ""
 
-#: templates/kalendas_options.php:30
+#: templates/kalendas_options.php:34
 msgid "One day after"
 msgstr ""
 
-#: templates/kalendas_options.php:31
+#: templates/kalendas_options.php:35
 msgid "Two days after"
 msgstr ""
 
-#: templates/kalendas_options.php:32
+#: templates/kalendas_options.php:36
 msgid "One week after"
 msgstr ""
 
-#: templates/kalendas_options.php:33
+#: templates/kalendas_options.php:37
 msgid "Two weeks after"
 msgstr ""
 
-#: templates/kalendas_options.php:34
+#: templates/kalendas_options.php:38
 msgid "One month after"
 msgstr ""
 
-#: templates/kalendas_options.php:35
+#: templates/kalendas_options.php:39
 msgid "Two months after"
 msgstr ""
 
-#: templates/kalendas_options.php:36
+#: templates/kalendas_options.php:40
 msgid "Six months after"
 msgstr ""
 
-#: templates/kalendas_options.php:37
+#: templates/kalendas_options.php:41
 msgid "One year after"
 msgstr ""
 
-#: templates/kalendas_options.php:42
+#: templates/kalendas_options.php:46
 msgid "Show at the most"
 msgstr ""
 
-#: templates/kalendas_options.php:46
+#: templates/kalendas_options.php:50
 msgid "Update every"
 msgstr ""
 
-#: templates/kalendas_options.php:48
+#: templates/kalendas_options.php:52
 msgid "hour"
 msgstr ""
 
-#: templates/kalendas_options.php:49
+#: templates/kalendas_options.php:53
 msgid "day"
 msgstr ""
 
-#: templates/kalendas_options.php:55
+#: templates/kalendas_options.php:59
 msgid "Update Options"
 msgstr ""
 

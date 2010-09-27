@@ -6,7 +6,11 @@
 		<table class="form-table">
 			<tr>
 				<td><?php _e("Date format", 'kalendas' ); ?>: </td>
-				<td><input type='text' name='date_format' value='<?php echo $options['date_format']; ?>'> <a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'><?php _e('Doumentation about date format.', 'kalendas'); ?></a></td>
+				<td><input type='text' name='date_format' value='<?php echo $options['date_format']; ?>'></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><?php _e("<a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'>Documentation about date format</a>.", 'sk'); ?></td>
 			</tr>
 			<tr>
 				<td><?php _e("Show events since", 'kalendas' ); ?>: </td>
