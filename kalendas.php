@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.2.4.1
+Version: 0.2.4.2
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -194,10 +194,18 @@ function kalendas_list_events($source, $rand) {
 			$event_list = array_slice($event_list,0,$options['max_events']); //Max number of events to show 
 			$num=0;
 			foreach($event_list as $event) {
+				//Time Zone
+				$aux_timeoff = $timeoff; // = get_option('gmt_offset')*(60*60);
+				$allday = false;
+				if(strlen($event->start)<12) {
+					$aux_timeoff = 0;
+					$allday = true;
+				}
+				
 				$num++;
 				$event_start = new DateTime($event->start);
-				$this_title = date_i18n( "M j", $event_start->format('U') + $timeoff );
-				$this_numeric = date_i18n( "m d", $event_start->format('U') + $timeoff );
+				$this_title = date_i18n( "M j", $event_start->format('U') + $aux_timeoff );
+				$this_numeric = date_i18n( "m d", $event_start->format('U') + $aux_timeoff );
 				if(strcmp($this_title,$date_title)!=0) {
 					$date_title = $this_title;
 					if(!$first) $answer.= "</ul>";
@@ -213,18 +221,16 @@ function kalendas_list_events($source, $rand) {
 				$event_start = new DateTime($event->start);
 				$event_end = new DateTime($event->end);
 				
-				//Time Zone
-				$timeoff = get_option('gmt_offset')*(60*60);
-				
 				//Event window
 				$file = get_theme_root()."/".get_template()."/kalendas_event.tpl"; //Form from the theme?
 				if(!file_exists($file)) $file = ABSPATH."wp-content/plugins/kalendas/templates/kalendas_event.tpl"; //Nope
 				$window = kalendas_readfile($file);
 				$window = str_replace('%title%', $event->title, $window);
 				$kalendas_date_format = $options['date_format'];
+				if($allday) $kalendas_date_format = $options['date_format_allday'];
 				
-				$window = str_replace('%when_start%', date_i18n( $kalendas_date_format, $event_start->format('U') + $timeoff), $window );
-				$window = str_replace('%when_end%', date_i18n( $kalendas_date_format, $event_end->format('U') + $timeoff), $window);
+				$window = str_replace('%when_start%', date_i18n( $kalendas_date_format, $event_start->format('U') + $aux_timeoff), $window );
+				$window = str_replace('%when_end%', date_i18n( $kalendas_date_format, $event_end->format('U') + $aux_timeoff), $window);
 				$window = str_replace('%where%', $event->where, $window);
 				$window = str_replace('%description%', $event->description, $window);
 				$window = str_replace('%i18n_when%', __('When', 'kalendas'), $window);
@@ -446,10 +452,16 @@ function kalendas_activate() {
 	if(!$options) {
 		$options = array(
 			'date_format'=>'l, M j. Y h:i A',
+			'date_format_allday'=>'l, M j. Y',
 			'days_begin'=>0,
 			'days_end'=>7,
 			'max_events'=>10,
 			'hours_update'=>24 );
+		update_option( 'kalendas_options', $options);
+	}
+	
+	if(!isset($options['date_format_allday'])) {
+		$options['date_format_allday'] = 'l, M j. Y';
 		update_option( 'kalendas_options', $options);
 	}
 }
@@ -469,6 +481,7 @@ function kalendas_options()
 	if(!$options) {
 		$options = array( 
 			'date_format'=>'l, M j. Y h:i A',
+			'date_format_allday'=>'l, M j.',
 			'days_begin'=>0,
 			'days_end'=>7,
 			'max_events'=>10,
@@ -483,6 +496,7 @@ function kalendas_options()
 			$mode='manage';
 			
 			$options['date_format'] = $_POST['date_format'];
+			$options['date_format_allday'] = $_POST['date_format_allday'];
 			$options['days_begin'] = $_POST['days_begin'];
 			$options['days_end'] = $_POST['days_end'];
 			$options['max_events'] = $_POST['max_events'];
