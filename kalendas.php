@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.2.4.3
+Version: 0.2.4.4
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -362,7 +362,9 @@ function kalendas_create( $source ) {
 				$where_attr = $gd->where->attributes();
 				$when_attr = $gd->when; //->attributes();
 				for($aux = 0; $aux<count($when_attr); $aux++) {
-					$out.="<event><title>".htmlspecialchars($item->title)."</title><where>{$where_attr->valueString}</where><start>{$when_attr[$aux]->attributes()->startTime}</start><end>{$when_attr[$aux]->attributes()->endTime}</end><description>".htmlspecialchars($item->content)."</description></event>"; //Add the entry to the XML file
+					if(strstr($gd->eventStatus->attributes()->value,'confirmed')) {
+						$out.="<event><title>".htmlspecialchars($item->title)."</title><where>{$where_attr->valueString}</where><start>{$when_attr[$aux]->attributes()->startTime}</start><end>{$when_attr[$aux]->attributes()->endTime}</end><description>".htmlspecialchars($item->content)."</description></event>"; //Add the entry to the XML file
+					}
 				}
 			}
 			$out.="</events>";
