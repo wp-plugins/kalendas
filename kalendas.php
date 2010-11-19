@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.2.4.2
+Version: 0.2.4.3
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -145,6 +145,36 @@ function kalendas_sort($a, $b) {
 }
 
 
+function kalendas_i18n( $dateformatstring, $date ) {
+	global $wp_locale;
+	
+	// store original value for language with untypical grammars
+	// see http://core.trac.wordpress.org/ticket/9396
+	$req_format = $dateformatstring;
+	
+	if ( ( !empty( $wp_locale->month ) ) && ( !empty( $wp_locale->weekday ) ) ) {
+		$datemonth = $wp_locale->get_month( $date->format( 'm' ) );
+		$datemonth_abbrev = $wp_locale->get_month_abbrev( $datemonth );
+		$dateweekday = $wp_locale->get_weekday( $date->format( 'w' ) );
+		$dateweekday_abbrev = $wp_locale->get_weekday_abbrev( $dateweekday );
+		$datemeridiem = $wp_locale->get_meridiem( $date->format( 'a' ) );
+		$datemeridiem_capital = $wp_locale->get_meridiem( $date->format( 'A' ) );
+		$dateformatstring = ' '.$dateformatstring;
+		$dateformatstring = preg_replace( "/([^\\\])D/", "\\1" . backslashit( $dateweekday_abbrev ), $dateformatstring );
+		$dateformatstring = preg_replace( "/([^\\\])F/", "\\1" . backslashit( $datemonth ), $dateformatstring );
+		$dateformatstring = preg_replace( "/([^\\\])l/", "\\1" . backslashit( $dateweekday ), $dateformatstring );
+		$dateformatstring = preg_replace( "/([^\\\])M/", "\\1" . backslashit( $datemonth_abbrev ), $dateformatstring );
+		$dateformatstring = preg_replace( "/([^\\\])a/", "\\1" . backslashit( $datemeridiem ), $dateformatstring );
+		$dateformatstring = preg_replace( "/([^\\\])A/", "\\1" . backslashit( $datemeridiem_capital ), $dateformatstring );
+
+		$dateformatstring = substr( $dateformatstring, 1, strlen( $dateformatstring ) -1 );
+	}
+	$j = $date->format( $dateformatstring );
+	// allow plugins to redo this entirely for languages with untypical grammars
+	$j = apply_filters('date_i18n', $j, $req_format, $date->format('U'), false);
+	return $j;
+}
+
 /**
 * Function to update cache if the time elapsed is older than the defined one.
 *
@@ -218,8 +248,12 @@ function kalendas_list_events($source, $rand) {
 					$answer.= "<div class='kalendas-title'>".$formated_title."</div><ul>";
 				}
 				
+				$timezone = get_option('timezone_string');
 				$event_start = new DateTime($event->start);
+				//$event_start->setTimezone($timezone);
 				$event_end = new DateTime($event->end);
+				//$event_end->setTimezone($timezone);
+				$aux_timeoff = 0;
 				
 				//Event window
 				$file = get_theme_root()."/".get_template()."/kalendas_event.tpl"; //Form from the theme?
@@ -229,8 +263,9 @@ function kalendas_list_events($source, $rand) {
 				$kalendas_date_format = $options['date_format'];
 				if($allday) $kalendas_date_format = $options['date_format_allday'];
 				
-				$window = str_replace('%when_start%', date_i18n( $kalendas_date_format, $event_start->format('U') + $aux_timeoff), $window );
-				$window = str_replace('%when_end%', date_i18n( $kalendas_date_format, $event_end->format('U') + $aux_timeoff), $window);
+				//$window = str_replace('%when_start%', $event_start->format($kalendas_date_format.' T'), $window );
+				$window = str_replace('%when_start%', kalendas_i18n( $kalendas_date_format, $event_start), $window );
+				$window = str_replace('%when_end%', kalendas_i18n( $kalendas_date_format, $event_end), $window);
 				$window = str_replace('%where%', $event->where, $window);
 				$window = str_replace('%description%', $event->description, $window);
 				$window = str_replace('%i18n_when%', __('When', 'kalendas'), $window);
