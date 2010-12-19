@@ -2,8 +2,8 @@
 Contributors: sebaxtian
 Tags: google calendar, calendar, events
 Requires at least: 2.9
-Tested up to: 3.0.1
-Stable tag: 0.2.4.4
+Tested up to: 3.0.3
+Stable tag: 0.2.5
 
 Kalendas gets your events from multiple Google Calendars and displays them in your page using a time range.
 
@@ -57,6 +57,9 @@ The calndar must be public for Kalendas to get it. One of the screenshots in the
 5. Infogram to set a Google Calendar as public data and where to get the XML.
 
 == Changelog ==
+
+= 0.2.5 =
+* Modified TinyMCE call to solve bugs with wp-cache.
 
 = 0.2.4.4 =
 * Solved bug with 'canceled' events.
