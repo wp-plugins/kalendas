@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Kalendas
-Version: 0.2.5
+Version: 0.2.5.1
 Plugin URI: http://www.sebaxtian.com/acerca-de/kalendas
 Description: Display your Google Calendar events.
 Author: Juan Sebastián Echeverry
@@ -291,7 +291,7 @@ function kalendas_list_events($source, $rand) {
 		";
 	}
 		
-	return apply_filters('comment_text', $answer).$script.$link;
+	return apply_filters('the_content', $answer).$script.$link;
 
 }
 
