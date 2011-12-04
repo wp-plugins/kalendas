@@ -15,7 +15,7 @@ You can use the tag [kalendas:title,feed] to put an event list in a pages or pos
 
 See the screenshots for an infogram explaining how to set public a calendar where to get the XML feed.
 
-Kalendas has been translated french by the__[InMotion Hosting Team](http://www.inmotionhosting.com/). Thanks for your time guys!
+Kalendas has been translated french by the __[InMotion Hosting Team](http://www.inmotionhosting.com/)__. Thanks for your time guys!
 
 Screenshots are in spanish because it's my native language. As you should know yet I __spe'k__ english, and the plugin use it by default.
 
