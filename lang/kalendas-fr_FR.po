@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Kalendas\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-18 09:35-0500\n"
+"PO-Revision-Date: 2011-12-04 14:32-0500\n"
+"Last-Translator: Juan Sebastián Echeverry <sebaxtian@gawab.com>\n"
+"Language-Team: sebaxtian <sebaxtian@gawab.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: /var/www/wordpress/wp-content/plugins/kalendas\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: COLOMBIA\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: templates\n"
+
+#: kalendas.php:67
+msgid "Can\\'t read Kalendas Feed"
+msgstr "Ne peux pas lire le feed Kalendas"
+
+#: kalendas.php:215
+#: templates/kalendas_options.php:22
+#: templates/kalendas_options.php:37
+msgid "Today"
+msgstr "Aujourd'hui "
+
+#: kalendas.php:216
+msgid "Tomorrow"
+msgstr "Demain "
+
+#: kalendas.php:236
+msgid "When"
+msgstr "Quand"
+
+#: kalendas.php:237
+msgid "Where"
+msgstr "Où"
+
+#: kalendas.php:244
+msgid "No events programmed."
+msgstr "Aucun événement programmé"
+
+#: kalendas.php:255
+msgid "Update"
+msgstr "Mettre à jour"
+
+#: kalendas.php:402
+msgid "Can't create the events list. Check your options."
+msgstr "Ne peut pas créer la liste des événements"
+
+#: kalendas.php:428
+msgid "Loading Events list..."
+msgstr "Chargement de la liste des événements. Vérifiez vos options"
+
+#: kalendas.php:509
+msgid "Options saved"
+msgstr "Options enregistrées"
+
+#: kalendas.php:579
+msgid "Add an event list to your sidebar."
+msgstr "Ajouter une liste d'événements à votre barre latérale"
+
+#: templates/kalendas_widget.php:3
+msgid "Title"
+msgstr "Titre"
+
+#: templates/kalendas_widget.php:10
+msgid "Google calendar feed"
+msgstr "Feed du Calendrier Google"
+
+#: templates/kalendas_options.php:3
+msgid "Kalendas' Options"
+msgstr "Options Kalendas"
+
+#: templates/kalendas_options.php:8
+msgid "Date format"
+msgstr "Format de date"
+
+#: templates/kalendas_options.php:12
+msgid "Date format (all day event)"
+msgstr "Format de date (l'événement dure toute la journée)"
+
+#: templates/kalendas_options.php:17
+msgid "<a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'>Documentation about date format</a>."
+msgstr "<a href='http://codex.wordpress.org/Formatting_Date_and_Time' target='_BLANK'>Documentation de format de date</a>."
+
+#: templates/kalendas_options.php:20
+msgid "Show events since"
+msgstr "Afficher les événements depuis"
+
+#: templates/kalendas_options.php:23
+msgid "One day before"
+msgstr "Un jour avant"
+
+#: templates/kalendas_options.php:24
+msgid "Two days before"
+msgstr "Deux jours avant"
+
+#: templates/kalendas_options.php:25
+msgid "One week before"
+msgstr "Une semaine avant"
+
+#: templates/kalendas_options.php:26
+msgid "Two weeks before"
+msgstr "Deux semaines avant"
+
+#: templates/kalendas_options.php:27
+msgid "One month before"
+msgstr "Un mois avant"
+
+#: templates/kalendas_options.php:28
+msgid "Two months before"
+msgstr "Deux mois avant"
+
+#: templates/kalendas_options.php:29
+msgid "Six months before"
+msgstr "Six mois avant"
+
+#: templates/kalendas_options.php:30
+msgid "One year before"
+msgstr "Un an avant"
+
+#: templates/kalendas_options.php:35
+msgid "Show events until"
+msgstr "Afficher les événements jusqu'à"
+
+#: templates/kalendas_options.php:38
+msgid "One day after"
+msgstr "Un jour après"
+
+#: templates/kalendas_options.php:39
+msgid "Two days after"
+msgstr "Deux jours après "
+
+#: templates/kalendas_options.php:40
+msgid "One week after"
+msgstr "Une semaine après "
+
+#: templates/kalendas_options.php:41
+msgid "Two weeks after"
+msgstr "Deux semaines après "
+
+#: templates/kalendas_options.php:42
+msgid "One month after"
+msgstr "Un mois après"
+
+#: templates/kalendas_options.php:43
+msgid "Two months after"
+msgstr "Deux mois après"
+
+#: templates/kalendas_options.php:44
+msgid "Six months after"
+msgstr "Six mois après "
+
+#: templates/kalendas_options.php:45
+msgid "One year after"
+msgstr "Un an après "
+
+#: templates/kalendas_options.php:50
+msgid "Show at the most"
+msgstr "Montrer à la plupart "
+
+#: templates/kalendas_options.php:54
+msgid "Update every"
+msgstr "Mise à jour toutes les"
+
+#: templates/kalendas_options.php:56
+msgid "hour"
+msgstr "Heure"
+
+#: templates/kalendas_options.php:57
+msgid "day"
+msgstr "Jour"
+
+#: templates/kalendas_options.php:63
+msgid "Update Options"
+msgstr "Options de mise à jour"
+
